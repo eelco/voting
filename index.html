@@ -21,7 +21,7 @@
                     $.ajax({
                         type: "POST",
                         data: $("form").serialize(),
-                        success: function(msg) { alert(msg); window.location.href = "/result" },
+                        success: function(msg) { alert(msg); window.location.href = "result" },
                         error:   function(xhr) { alert(xhr.responseText); } 
                     });
 
