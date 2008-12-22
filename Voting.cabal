@@ -1,0 +1,22 @@
+Name:            Voting
+Version:         0.0
+Synopsis:        Simple Voting Web App
+Description:     A Voting web application built with HAppS.  Uses Condorcet voting and relies on JavaScript.
+License:         BSD3
+License-file:    LICENSE
+Copyright:       (c) Tupil
+Author:          Eelco Lempsink (eml [at] tupil.com)
+Build-Type:      Simple
+Build-Depends:   base 
+               , containers 
+               , mtl 
+               , condorcet 
+               , hsemail 
+               , HAppS-Server >= 0.9.3 
+               , HAppS-State >= 0.9.3
+               , parsec == 2.*
+               , bytestring == 0.9.*
+Data-Files:      index.html
+Executable:      Voting
+Main-Is:         Voting.hs
+Other-Modules:   State, Paths_Voting
