@@ -13,12 +13,10 @@ import HAppS.State (startSystemState, Proxy(..))
 
 import State
 
-import Paths_Voting
-
 main :: IO ()
 main = do
     startSystemState (Proxy :: Proxy Votes)
-    simpleHTTP nullConf  
+    simpleHTTP (nullConf { port = 8008 })
         [ dir "result" [ flatten $ anyRequest $ resultPage ]
         , flatten $ withData (\d -> [ method POST $ vote d ])
         , method () $ serveFile "index.html" 
@@ -32,7 +30,7 @@ instance ToMessage HtmlFile where
 
 serveFile :: String -> Web Response
 serveFile filename = do
-    content  <- liftIO $ getDataFileName filename >>= L.readFile
+    content  <- liftIO $ L.readFile filename
     return $ toResponse $ HtmlFile { fcontent = content }
 
 vote :: Vote -> Web String
