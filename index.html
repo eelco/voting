@@ -6,9 +6,22 @@
         <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js'></script>
         <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.min.js'></script>
         <script type='text/javascript'>
+            var ulOptions = { connectWith: [ "#list ul", "#list ol" ] 
+                            , stop: keepInUl
+                            , placeholder: "dropzone"
+                            , tolerance: "intersect"
+                            , delay: 10
+                            };
+
+            var olOptions = { stop: keepInUl
+                            , delay: 10 
+                            , placeholder: "dropzone"
+                            , tolerance: "intersect"
+                            };
+
             function keepInUl() {
                 $("#list ol > li").each(function(i, oli){
-                    var oli   = $(oli)
+                    var oli   = $(oli);
                     var subul = oli.find("ul");
                     var subli = oli.find("li");
                     // Is this one empty?
@@ -25,11 +38,7 @@
                         ul.append(subli);
                     }
                     
-                    ul.sortable({ connectWith: [ "#list ol", "#list ul" ] 
-                                , stop: keepInUl
-                                , tolerance: "intersect"
-                                , delay: 10
-                                });
+                    ul.sortable(ulOptions);
                     oli.empty();
                     oli.removeAttr("id");
                     oli.append(ul);
@@ -37,18 +46,8 @@
             }
 
             $(document).ready(function() {
-                $("#list ul").sortable(
-                    { connectWith: [ "#list ol", "#list ul" ] 
-                    , stop: keepInUl
-                    , tolerance: "intersect"
-                    , delay: 10
-                    });
-
-                $("#list ol").sortable(
-                    { stop: keepInUl
-                    , delay: 10 
-                    , tolerance: "intersect"
-                    });
+                $("#list ul").sortable(ulOptions);
+                $("#list ol").sortable(olOptions);
 
                 $("form").bind("submit", function() {
                     var vote = [];
@@ -87,12 +86,13 @@
                      ; padding: 0;
                      }
             #list ul li { border: 1px solid #6f6
-                        ; background: #6c6;
-                        ; padding: 2px;
-                        ; margin: 2px;
-                        ; display: inline;
-                        ; cursor: move;
+                        ; background: #6c6
+                        ; padding: 2px
+                        ; margin: 2px
+                        ; display: inline
+                        ; cursor: move
                         }
+            .dropzone { border: 1px dashed #9c9 }
         </style>
     </head>
     <body>
@@ -101,7 +101,7 @@
         <em>Hint</em>: to insert an item on a different vertical position,
         approach the list from the left, top or bottom while dragging.</p>
         <div id='list'>
-            <ol class='sortable'>
+            <ol>
                 <li><ul>
                     <li id='t1'>Thingie 1</li>
                     <li id='t2'>Thingie 2</li>
