@@ -16,7 +16,7 @@ Build-Depends:      base
                   , HAppS-State >= 0.9.3
                   , parsec == 2.*
                   , bytestring == 0.9.*
-Extra-Source-Files: index.html
+Extra-Source-Files: Voting/view.html, Voting/style.css, Voting/controller.js
 Executable:         Voting
 Main-Is:            Voting.hs
-Other-Modules:      State
+Other-Modules:      Voting.Model, Voting.State

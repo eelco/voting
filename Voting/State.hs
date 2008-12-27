@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell, FlexibleInstances, MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies, TypeSynonymInstances, DeriveDataTypeable, FlexibleContexts #-}
-module State (AddVote(..), Result(..), Votes, Ballot, Candidate) where
+module Voting.State (AddVote(..), Result(..), Votes, Ballot, Candidate) where
 
 import Control.Monad.State
 import Control.Monad.Reader

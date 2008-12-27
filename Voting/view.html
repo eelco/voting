@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Condorcet Voting</title>
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js'></script>
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.min.js'></script>
+        <script type='text/javascript' src='controller.js'></script>
+        <link rel="stylesheet" type='text/css' href='style.css' />
+    </head>
+    <body>
+        <h1>Condorcet Voting</h1>
+        <p>Drag the items to order them.  Only the vertical (numbered) order
+        matters.</p>
+        <div id='list'>
+            <ol>
+                <li><ul>
+                    <li id='t1'>Thingie 1</li>
+                    <li id='t2'>Thingie 2</li>
+                    <li id='t3'>Thingie 3</li>
+                    <li id='t4'>Thingie 4</li>
+                    <li id='t5'>Thingie 5</li>
+                </ul></li>
+            </ol>
+        </div>
+        <form method='post' action=''>
+            <label for='email'>Email address</label>
+            <input type='text'   name='email' id='email' value=''/>
+            <input type='hidden' name='vote' id='vote' value=''/>
+            <input type='submit' value='Vote!'/>
+        </form>
+    </body>
+</html>
