@@ -7,12 +7,12 @@ body { padding: 20px;
       ; padding:    0
       }
 #list ol { border: 4px solid #9f9
-         ; padding: 10px 40px
+         ; padding: 5px 40px
          }
-#list ol li { padding: 5px }
-#list ul { display: inline;
-         ; padding: 0;
-         }
+#list ol li { padding: 3px
+            ; margin: 5px
+            }
+#list ul { padding: 0 }
 #list ul li { border: 1px solid #6f6
             ; background: #6c6
             ; padding: 2px

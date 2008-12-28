@@ -26,7 +26,7 @@ result = do
 type Email = String
 newtype Vote = Vote (Either String (Email, Ballot))
 
--- TODO: Clean this up, check if candidates are within range
+-- TODO: Clean this up, check if candidates are within range?
 instance FromData Vote where
     fromData = do email <- look "email"
                   vote  <- look "vote"

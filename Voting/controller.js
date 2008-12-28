@@ -1,14 +1,12 @@
-var ulOptions = { connectWith: [ "#list ul", "#list ol" ] 
+var ulOptions = { connectWith: [ "#list ol", "#list ul" ] 
                 , stop: keepInUl
                 , placeholder: "dropzone"
-                , tolerance: "intersect"
-                , delay: 10
+                , opacity: 0.8
                 };
 
 var olOptions = { stop: keepInUl
-                , delay: 10 
                 , placeholder: "dropzone"
-                , tolerance: "intersect"
+                , opacity: 0.8
                 };
 
 function keepInUl() {
@@ -16,7 +14,7 @@ function keepInUl() {
         var oli   = $(oli);
         var subul = oli.find("ul");
         var subli = oli.find("li");
-        // Is this one empty?
+        // Test if the li is empty
         if (subul.length == 1 && subli.length == 0) {
             oli.remove();
             return;
@@ -38,8 +36,8 @@ function keepInUl() {
 }
 
 $(document).ready(function() {
-    $("#list ul").sortable(ulOptions);
     $("#list ol").sortable(olOptions);
+    $("#list ul").sortable(ulOptions);
 
     $("form").bind("submit", function() {
         var vote = [];
