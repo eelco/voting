@@ -1,62 +1,55 @@
-var ulOptions = { connectWith: [ "#list ul", "#list ol" ] 
-                , stop: keepInUl
-                , placeholder: "dropzone"
-                , opacity: 0.8
-                , tolerance: "pointer"
-                };
+var sort;
 
-var olOptions = { stop: keepInUl
-                , placeholder: "dropzone"
-                , opacity: 0.8
-                , tolerance: "pointer"
-                };
+window.addEvent('domready', function() {
+    sort = new Sortables($$('#list ol, #list ul'),
+                    { clone:   true
+                    , opacity: 0.8
+                    , onComplete:  cleanUp
+                    , onSort: approach
+                    });
+    // Override default behaviour
+    sort.getDroppables = $lambda($$('li'));
 
-function keepInUl() {
-    $("#list ol > li").each(function(i, oli){
-        var oli   = $(oli);
-        var subul = oli.find("ul");
-        var subli = oli.find("li");
-        // Test if the li is empty
-        if (subul.length == 1 && subli.length == 0) {
-            oli.remove();
-            return;
-        } // else
+    $$('form').addEvent('submit', function(e){
+        e.preventDefault();
+        var vote = [];
 
-        // Create/merge an ul
-        var ul = $("<ul></ul>");
-        if (subli.length == 0) {
-            ul.append(oli.clone());
-        } else {
-            ul.append(subli);
-        }
+        $$('#list ol ul').each(function(ul) {
+            vote.push(ul.getChildren().get('id').join('=').replace(/t/g, ''));
+        });
         
-        ul.sortable(ulOptions);
-        oli.empty();
-        oli.removeAttr("id");
-        oli.append(ul);
+        $('vote').set('value', vote.join());
+
+        $$('form').set('send', 
+            { onSuccess: function(msg){ alert(msg); window.location.href = "result"; }
+            , onFailure: function(xhr){ alert(xhr.responseText); }
+            });
+        $$('form').send();
+
+    });
+    
+});
+
+function cleanUp() {
+    $$('li').removeClass('imnext')
+    $$("#list ol > li").each(function(oli) {
+        // Make sure there is always a surrounding <ul>
+        if (oli.get('id') != null) {
+            ul = new Element('ul');
+            li = new Element('li');
+            li.wraps(ul.wraps(oli));
+            // Add the new li
+            sort.getDroppables = $lambda($$('li'));
+        // <li>s with empty <ul>s are removed
+        } else if (oli.getElement('li') == null) {
+            oli.destroy();
+        }
     });
 }
 
-$(document).ready(function() {
-    $("#list ol").sortable(olOptions);
-    $("#list ul").sortable(ulOptions);
-
-    $("form").bind("submit", function() {
-        var vote = [];
-
-        $("#list ol ul").each(function(i, ul){
-            vote.push($(ul).sortable("toArray").join('=').replace(/t/g, ''))
-        });
-
-        $("#vote").val(vote.join());
-
-        $.ajax({
-            type: "POST",
-            data: $("form").serialize(),
-            success: function(msg) { alert(msg); window.location.href = "result" },
-            error:   function(xhr) { alert(xhr.responseText); } 
-        });
-
-        return false;
-    })
-});
+function approach(target) {
+    $$('li').removeClass('imnext')
+    if (target.getParent().get('tag') == 'ol') {
+        $$(target.getNext(), target.getPrevious()).addClass('imnext')
+    }
+}

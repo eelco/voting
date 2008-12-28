@@ -9,10 +9,13 @@ body { padding: 20px
 #list ol { border: 4px solid #9f9
          ; padding: 5px 40px
          }
-#list ol li { padding: 3px
-            ; margin: 5px
+#list ol li { margin: 6px 
             }
-#list ul { padding: 0 }
+/* The padding must be big enough to leave a bit of space around the <li> */
+#list ul { padding: 4px 0  
+         }
+#list li.imnext ul { padding: 0
+                   }
 #list ul li { border: 1px solid #6f6
             ; background: #6c6
             ; padding: 2px
@@ -20,4 +23,3 @@ body { padding: 20px
             ; display: inline
             ; cursor: move
             }
-.dropzone { border: 1px dashed #9c9 }
