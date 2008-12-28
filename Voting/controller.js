@@ -1,12 +1,14 @@
-var ulOptions = { connectWith: [ "#list ol", "#list ul" ] 
+var ulOptions = { connectWith: [ "#list ul", "#list ol" ] 
                 , stop: keepInUl
                 , placeholder: "dropzone"
                 , opacity: 0.8
+                , tolerance: "pointer"
                 };
 
 var olOptions = { stop: keepInUl
                 , placeholder: "dropzone"
                 , opacity: 0.8
+                , tolerance: "pointer"
                 };
 
 function keepInUl() {
