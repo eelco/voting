@@ -4,14 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Condorcet Voting</title>
-        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/mootools/1.2.1/mootools-yui-compressed.js'></script>
-        <script type='text/javascript' src='mootools-1.2-more.js'></script>
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js'></script>
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.min.js'></script>
         <script type='text/javascript' src='controller.js'></script>
         <link rel="stylesheet" type='text/css' href='style.css' />
     </head>
     <body>
         <h1>Condorcet Voting</h1>
-        <p>Drag the items to order them.  Only the vertical (numbered) order matters.</p>
+        <p>Drag the items to order them.  Only the vertical (numbered) order
+        matters.</p>
         <div id='list'>
             <ol>
                 <li><ul>
@@ -23,7 +24,7 @@
                 </ul></li>
             </ol>
         </div>
-        <form method='post' action='.'>
+        <form method='post' action=''>
             <label for='email'>Email address</label>
             <input type='text'   name='email' id='email' value=''/>
             <input type='hidden' name='vote' id='vote' value=''/>

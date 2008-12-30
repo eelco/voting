@@ -1,55 +1,47 @@
-var sort;
+var ulOptions = { connectWith: [ "#list ul", "#list ol" ] 
+                , stop: cleanUp
+                , placeholder: "dropzone"
+                , opacity: 0.8
+                };
 
-window.addEvent('domready', function() {
-    sort = new Sortables($$('#list ol, #list ul'),
-                    { clone:   true
-                    , opacity: 0.8
-                    , onComplete:  cleanUp
-                    , onSort: approach
-                    });
-    // Override default behaviour
-    sort.getDroppables = $lambda($$('li'));
-
-    $$('form').addEvent('submit', function(e){
-        e.preventDefault();
-        var vote = [];
-
-        $$('#list ol ul').each(function(ul) {
-            vote.push(ul.getChildren().get('id').join('=').replace(/t/g, ''));
-        });
-        
-        $('vote').set('value', vote.join());
-
-        $$('form').set('send', 
-            { onSuccess: function(msg){ alert(msg); window.location.href = "result"; }
-            , onFailure: function(xhr){ alert(xhr.responseText); }
-            });
-        $$('form').send();
-
-    });
-    
-});
+var olOptions = { stop: cleanUp
+                , placeholder: "dropzone"
+                , opacity: 0.8
+                };
 
 function cleanUp() {
-    $$('li').removeClass('imnext')
-    $$("#list ol > li").each(function(oli) {
-        // Make sure there is always a surrounding <ul>
-        if (oli.get('id') != null) {
-            ul = new Element('ul');
-            li = new Element('li');
-            li.wraps(ul.wraps(oli));
-            // Add the new li
-            sort.getDroppables = $lambda($$('li'));
-        // <li>s with empty <ul>s are removed
-        } else if (oli.getElement('li') == null) {
-            oli.destroy();
+    $("#list ol > li").each(function(i, oli){
+        var oli   = $(oli);
+        // Test if the li is empty
+        if (oli.attr('id') != "") {
+            oli.wrap("<li><ul></ul></li>");
+            oli.parent().sortable(ulOptions);
+        } else if (oli.find("li").length == 0) {
+            oli.remove();
         }
     });
 }
 
-function approach(target) {
-    $$('li').removeClass('imnext')
-    if (target.getParent().get('tag') == 'ol') {
-        $$(target.getNext(), target.getPrevious()).addClass('imnext')
-    }
-}
+$(document).ready(function() {
+    $("#list ol").sortable(olOptions);
+    $("#list ul").sortable(ulOptions);
+
+    $("form").bind("submit", function() {
+        var vote = [];
+
+        $("#list ol ul").each(function(i, ul){
+            vote.push($(ul).sortable("toArray").join('=').replace(/t/g, ''))
+        });
+
+        $("#vote").val(vote.join());
+
+        $.ajax({
+            type: "POST",
+            data: $("form").serialize(),
+            success: function(msg) { alert(msg); window.location.href = "result" },
+            error:   function(xhr) { alert(xhr.responseText); } 
+        });
+
+        return false;
+    })
+});
