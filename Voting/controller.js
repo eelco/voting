@@ -5,7 +5,6 @@ window.addEvent('domready', function() {
                     { clone:   true
                     , opacity: 0.8
                     , onComplete:  cleanUp
-                    , onSort: approach
                     });
     // Override default behaviour
     sort.getDroppables = $lambda($$('li'));
@@ -31,7 +30,6 @@ window.addEvent('domready', function() {
 });
 
 function cleanUp() {
-    $$('li').removeClass('imnext')
     $$("#list ol > li").each(function(oli) {
         // Make sure there is always a surrounding <ul>
         if (oli.get('id') != null) {
@@ -45,11 +43,4 @@ function cleanUp() {
             oli.destroy();
         }
     });
-}
-
-function approach(target) {
-    $$('li').removeClass('imnext')
-    if (target.getParent().get('tag') == 'ol') {
-        $$(target.getNext(), target.getPrevious()).addClass('imnext')
-    }
 }
