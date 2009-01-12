@@ -2,13 +2,11 @@ var ulOptions = { connectWith: [ "#list ul", "#list ol" ]
                 , stop: cleanUp
                 , placeholder: "dropzone"
                 , opacity: 0.8
-                , axis: 'y'
                 };
 
 var olOptions = { stop: cleanUp
                 , placeholder: "dropzone"
                 , opacity: 0.8
-                , axis: 'y'
                 };
 
 function cleanUp() {
